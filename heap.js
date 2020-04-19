@@ -1,7 +1,12 @@
 class Heap {
-    constructor(type) {
+    constructor(type, initArr=[]) {
         this.heapType = type
         this.arr = []
+        if (initArr) {
+            initArr.map(item => {
+                this.insert(item)
+            })
+        }
     }
 
     insert(item) {
@@ -89,14 +94,14 @@ class Heap {
 
 }
 
-const h = new Heap('max');
+const h = new Heap('max', [1,2,3,4,5,6]);
 // const h = new Heap();
-h.insert(6)
-h.insert(3)
-h.insert(2)
-h.insert(1)
-h.insert(0)
-h.insert(10)
-console.log(h);
-// h.remove(1)
+// h.insert(6)
+// h.insert(3)
+// h.insert(2)
+// h.insert(1)
+// h.insert(0)
+// h.insert(10)
 // console.log(h);
+// h.remove(6)
+console.log(h);
