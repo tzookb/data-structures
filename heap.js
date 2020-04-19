@@ -9,20 +9,52 @@ class Heap {
         }
     }
 
+    /**
+     * O(log(n))
+     */
     insert(item) {
         this.arr.push(item)
         this._rebalance(this.arr.length - 1)
     }
 
+    /**
+     * O(log(n))
+     */
     remove(item) {
         const indexOfFound = this.arr.indexOf(item)
         if (indexOfFound > -1) {
-            const lastItem = this.arr.pop()
-            this.arr[indexOfFound] = lastItem
-            this._rebalance(indexOfFound)
+            this._removeByIdx(indexOfFound)
         }
     }
 
+    /**
+     * O(1)
+     */
+    readEdge() {
+        return this.arr[0]
+    }
+
+    /**
+     * O(log(n))
+     */
+    getEdge() {
+        const edge = this.arr[0]
+        this._removeByIdx(0)
+        return edge
+    }
+
+    /**
+     * O(log(n))
+     */
+    _removeByIdx(idx) {
+        const lastItem = this.arr.pop()
+        this.arr[idx] = lastItem
+        this._rebalance(idx)
+    }
+
+    /**
+     * O(log(n))
+     */
     _rebalance(i) {
         while (true) {
             let currentVal = this.arr[i]
@@ -105,8 +137,8 @@ const h = new Heap('max', [1,2,3,4,5,6]);
 // h.insert(0)
 // console.log(h);
 console.log(h);
-h.remove(6)
+// h.remove(6)
 h.insert(10)
-h.remove(5)
-h.insert(7)
+h.remove(10)
+// h.insert(7)
 console.log(h);
