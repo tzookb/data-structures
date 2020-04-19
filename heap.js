@@ -17,9 +17,10 @@ class Heap {
     remove(item) {
         const indexOfFound = this.arr.indexOf(item)
         if (indexOfFound > -1) {
-            this.arr.splice(indexOfFound, 1)
+            const lastItem = this.arr.pop()
+            this.arr[indexOfFound] = lastItem
+            this._rebalance(indexOfFound)
         }
-        this._rebalance()
     }
 
     _rebalance(i) {
@@ -40,17 +41,17 @@ class Heap {
             const rightChildIdx = this._getRightChildIdx(i)
             const rightChildVal = this._getRightChild(i)
 
+            if (this._compare(rightChildVal, currentVal)) {
+                this.arr[rightChildIdx] = currentVal
+                this.arr[i] = rightChildVal
+                i = rightChildIdx
+                continue
+            }
             //check children
             if (this._compare(leftChildVal, currentVal)) {
                 this.arr[leftChildIdx] = currentVal
                 this.arr[i] = leftChildVal
                 i = leftChildIdx
-                continue
-            }
-            if (this._compare(rightChildVal, currentVal)) {
-                this.arr[rightChildIdx] = currentVal
-                this.arr[i] = rightChildVal
-                i = rightChildIdx
                 continue
             }
             break
@@ -94,6 +95,7 @@ class Heap {
 
 }
 
+// const h = new Heap('max', [1,2,3,4,5,6]);
 const h = new Heap('max', [1,2,3,4,5,6]);
 // const h = new Heap();
 // h.insert(6)
@@ -101,7 +103,10 @@ const h = new Heap('max', [1,2,3,4,5,6]);
 // h.insert(2)
 // h.insert(1)
 // h.insert(0)
-// h.insert(10)
 // console.log(h);
-// h.remove(6)
+console.log(h);
+h.remove(6)
+h.insert(10)
+h.remove(5)
+h.insert(7)
 console.log(h);
